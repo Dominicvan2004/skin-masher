@@ -1,27 +1,22 @@
 import os
 import shutil as sh
-import time
-
-#we'll need a way to scrape everything include the 2x scale elements and save them with the orginally scale element
-
-#ui to display everything wouldn't hurt, maybe flask so i could actual use some mark up and learn npm 
-
-#when the user selects one of the originially scaled elements there will be a function that will search the 2x folder and add it to the new skin
-
-#when a user choose an element it's gonna have to be renamed
-
-#sike were not using a fucking web app frame work nigga were using pyqt
 
 
+def find_skin_element(element: str, dstn: str, direct: str)->None:
+    """
+    Method to scrape the skin folder for a specified element.
 
-def find_skin_element(element: str, dstn:str):
+    element: the name of the element your looking for (include file extension)\n
+    dstn: the name of the folder you want to make\n
+    direct: the path to your skin folder
+    """
+    print(direct, 'hai')
 
     try:
         os.mkdir(path=f'{dstn}')
     except:
         pass
-
-    direct: str = input('Please input your skin folder directory')
+    
     direct.replace('\\','\\')
 
     for skin in os.listdir(path=direct):
@@ -29,7 +24,7 @@ def find_skin_element(element: str, dstn:str):
         print(f'currently looking at {skin}')
 
         for skin_element in os.listdir(path=direct+f'\\{skin}'):
-
+          
             if skin_element == element:
                 print(f'found {skin} {skin_element}')
                 try:
@@ -41,6 +36,3 @@ def find_skin_element(element: str, dstn:str):
                     print(f'sucessfully downloaded {skin_element} from {skin}')
                 except:
                     continue
-
-
-find_skin_element('cursor.png', 'cursors')
