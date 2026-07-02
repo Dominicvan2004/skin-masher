@@ -22,14 +22,10 @@ class UI(QMainWindow):
     self.UIinit()
 
     self.dir_dict = {
-      'skin_ele': '',
-      'skin_path': '',
-      'ele_path': ''
+      'skin_path': ''
     }
 
-    self.line1.textChanged.connect(lambda: self.update_dir(self.dir_dict, 'skin_ele',  self.line1))
-    self.line2.textChanged.connect(lambda: self.update_dir(self.dir_dict, 'ele_path',  self.line2))
-    self.line3.textChanged.connect(lambda: self.update_dir(self.dir_dict, 'skin_path', self.line3))
+    self.line1.textChanged.connect(lambda: self.update_dir(self.dir_dict, 'skin_path',  self.line1))
 
    
     for i in os.listdir('cursors'):
@@ -49,14 +45,11 @@ class UI(QMainWindow):
 
 
   def UIinit(self) -> None:
-    self.line1 = self.findChild(QLineEdit, "line1")
-    self.line2 = self.findChild(QLineEdit, "line2")
-    self.line3 = self.findChild(QLineEdit, "line3")
+    self.line1 = self.findChild(QLineEdit, "skinFolder")
     self.pushButt = self.findChild(QPushButton, "pushButton")
 
     self.form = self.findChild(QFormLayout, 'form')
     self.group = self.findChild(QGroupBox, 'groupBox')
-    self.area = self.findChild(QScrollArea, 'scrollArea')
   
 
 

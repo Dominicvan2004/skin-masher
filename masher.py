@@ -1,5 +1,6 @@
 import os
 import shutil as sh
+import time
 
 
 def find_skin_element(element: str, dstn: str, direct: str)->None:
@@ -24,7 +25,7 @@ def find_skin_element(element: str, dstn: str, direct: str)->None:
         print(f'currently looking at {skin}')
 
         for skin_element in os.listdir(path=direct+f'\\{skin}'):
-          
+            print(skin_element)
             if skin_element == element:
                 print(f'found {skin} {skin_element}')
                 try:
@@ -33,6 +34,12 @@ def find_skin_element(element: str, dstn: str, direct: str)->None:
                     os.rename(src=f'{dstn}\\{element}',
                             dst=f'{dstn}\\{skin} {element}')
                     
-                    print(f'sucessfully downloaded {skin_element} from {skin}')
+                    print(f'sucessfully copied {skin_element} from {skin}')
                 except:
                     continue
+
+find_skin_element(
+    'cursor.png',
+    'cursors',
+    'C:\\Users\\Owner\\AppData\\Local\\osu!\\skins'
+)
