@@ -9,7 +9,12 @@ class Image(QLabel):
     def __init__(self, img_dir:str, scale: tuple):
         super().__init__()
         self.setPixmap(QPixmap(img_dir).scaled(scale[0], scale[1]))
+        self.img_dir = img_dir
         
+
+
+        
+
         
      
        

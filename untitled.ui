@@ -15,20 +15,13 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="1">
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>skin folder path</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
+    <item row="5" column="0">
      <widget class="QLineEdit" name="skinFolder"/>
     </item>
-    <item row="3" column="1">
-     <widget class="QPushButton" name="pushButton">
+    <item row="3" column="0">
+     <widget class="QPushButton" name="elementButton">
       <property name="text">
-       <string>Find ELements</string>
+       <string>Change Element</string>
       </property>
      </widget>
     </item>
@@ -37,13 +30,16 @@
       <property name="widgetResizable">
        <bool>true</bool>
       </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
       <widget class="QWidget" name="scrollAreaWidgetContents_2">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>562</width>
-         <height>655</height>
+         <width>568</width>
+         <height>621</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -59,11 +55,21 @@
            <item>
             <widget class="QGroupBox" name="groupBox">
              <property name="title">
-              <string>GroupBox</string>
+              <string/>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
               <item row="0" column="1">
-               <layout class="QFormLayout" name="formLayout"/>
+               <layout class="QFormLayout" name="formLayout">
+                <property name="rowWrapPolicy">
+                 <enum>QFormLayout::WrapAllRows</enum>
+                </property>
+                <property name="labelAlignment">
+                 <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                </property>
+                <property name="formAlignment">
+                 <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                </property>
+               </layout>
               </item>
              </layout>
             </widget>
@@ -74,6 +80,30 @@
        </layout>
       </widget>
      </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>Update Skin Data</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Element</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>skin folder path</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QComboBox" name="elements"/>
     </item>
    </layout>
   </widget>
