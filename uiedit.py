@@ -14,6 +14,8 @@ from masher import find_skin_element as fse
 from classes import Image
 import sys
 import os
+import json
+
 class UI(QMainWindow):
   def __init__(self):
     super(UI, self).__init__()
@@ -21,21 +23,21 @@ class UI(QMainWindow):
     uic.loadUi("untitled.ui", self)
     self.UIinit()
 
-    self.dir_dict = {
+    self.dir_dict: dict= {
       'skin_path': ''
     }
 
+
+    jason = open('test.json', mode='r')
+    elements: dict = json.load(jason)
+
     self.line1.textChanged.connect(lambda: self.update_dir(self.dir_dict, 'skin_path',  self.line1))
-
    
-    for i in os.listdir('cursors'):
-      self.form.addRow(Image(f'cursors\\{i}'))
+    for path in elements['hitcircle.png']:
+      self.form.addWidget(Image(path, (20,20)))
+    
+    self.group.setLayout(self.form) 
 
-    self.group.setLayout(self.form)
-
-
-
-  
     self.pushButt.clicked.connect(lambda: fse(
       dstn=self.dir_dict['ele_path'],
       direct=self.dir_dict['skin_path'],
@@ -48,7 +50,7 @@ class UI(QMainWindow):
     self.line1 = self.findChild(QLineEdit, "skinFolder")
     self.pushButt = self.findChild(QPushButton, "pushButton")
 
-    self.form = self.findChild(QFormLayout, 'form')
+    self.form = self.findChild(QFormLayout, 'formLayout')
     self.group = self.findChild(QGroupBox, 'groupBox')
   
 

@@ -1,7 +1,6 @@
 import os
 import shutil as sh
-import time
-
+import time 
 
 def find_skin_element(element: str, dstn: str, direct: str)->None:
     """
@@ -10,6 +9,8 @@ def find_skin_element(element: str, dstn: str, direct: str)->None:
     element: the name of the element your looking for (include file extension)\n
     dstn: the name of the folder you want to make\n
     direct: the path to your skin folder
+
+    kinda dprecated now just gonna keep it in case tho
     """
     print(direct, 'hai')
 
@@ -38,8 +39,3 @@ def find_skin_element(element: str, dstn: str, direct: str)->None:
                 except:
                     continue
 
-find_skin_element(
-    'cursor.png',
-    'cursors',
-    'C:\\Users\\Owner\\AppData\\Local\\osu!\\skins'
-)
