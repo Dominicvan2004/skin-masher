@@ -10,10 +10,13 @@ def scrape(skin_path: str, json_path: str):
   skin_path: str - Path to your osu skin folder
   json_path: str - Path the apps json file 
   """
-  elements: dict = {}
+  elements: dict = {
+    'skins': []
+  }
   jason = open(json_path, mode='w')
 
   for skin in os.listdir(skin_path):
+    elements['skins'].append(skin.strip(skin_path))
     for ele in os.listdir(skin_path + '\\' + skin):
       try:
       #this works if the key already exsits

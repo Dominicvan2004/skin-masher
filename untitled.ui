@@ -58,18 +58,8 @@
               <string/>
              </property>
              <layout class="QGridLayout" name="gridLayout_2">
-              <item row="0" column="1">
-               <layout class="QFormLayout" name="formLayout">
-                <property name="rowWrapPolicy">
-                 <enum>QFormLayout::WrapAllRows</enum>
-                </property>
-                <property name="labelAlignment">
-                 <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                </property>
-                <property name="formAlignment">
-                 <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                </property>
-               </layout>
+              <item row="0" column="0">
+               <layout class="QVBoxLayout" name="vLayout"/>
               </item>
              </layout>
             </widget>
