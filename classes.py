@@ -27,10 +27,12 @@ class Image(QWidget):
         """
         Adds the element to the selected skin
         """
+
         combo = QComboBox()
-        choice: str = combo.currentText()
+        
         combo.addItems(os.listdir(self.path))
         self.hlayout.addWidget(combo)
+        combo.currentIndexChanged.connect(lambda: print(combo.currentData))
         combo.currentIndexChanged.connect(combo.deleteLater)
 
 
