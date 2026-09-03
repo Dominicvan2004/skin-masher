@@ -1,4 +1,5 @@
-#Skin-Masher
+
 <div align="center">
+#Skin-Masher
 This is a tool for the rhythm game OSU! to help manage and customize skins.
 </div>
