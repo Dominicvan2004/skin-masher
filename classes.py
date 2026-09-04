@@ -7,7 +7,6 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtGui import QPixmap
 import os
-#testing 
 class Image(QWidget):
     def __init__(self, img_dir:str, scale: tuple, path:str):
         super().__init__()
@@ -28,12 +27,13 @@ class Image(QWidget):
         """
         Adds the element to the selected skin
         """
-        # get the path of the skin you want to add the element too
-        # copy to the path AND BOOOMMMM UR DONE.
-        
 
+        combo = QComboBox()
         
-
+        combo.addItems(os.listdir(self.path))
+        self.hlayout.addWidget(combo)
+        combo.currentIndexChanged.connect(lambda: print(combo.currentData))
+        combo.currentIndexChanged.connect(combo.deleteLater)
 
 
 
