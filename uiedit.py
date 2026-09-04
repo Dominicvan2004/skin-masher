@@ -13,7 +13,6 @@ from classes import Image
 import sys
 import os
 import json
-from save_data import save_data
 
 
 #add functionality to the images and fix centering 
@@ -48,24 +47,6 @@ class UI(QMainWindow):
     self.group.setLayout(self.form)
 
     self.show()
-
-  def populate_layout(self, layout: QVBoxLayout, element: str, element_dict: dict):
-    """
-    Populate the UI with the desired elements
-
-    layout: QFormLayout - The layout your populating\n
-    element: str - The element you want to populate the UI with\n
-    element_dict: dict - The dict holding all of the elements
-    """
-    #clearing the layout if has more than 0 elements
-    if layout.count() > 0:
-      for i in reversed(range(layout.count())): 
-        layout.itemAt(i).widget().deleteLater()
-      
-    for ele in element_dict[element]:
-       layout.addWidget(Image(ele, (100,100), self.elements['folder_path']))
-       
-
   def UIinit(self) -> None:
     self.line1 = self.findChild(QLineEdit, "skinFolder")
     self.element_combo = self.findChild(QComboBox, "elements")
@@ -75,12 +56,29 @@ class UI(QMainWindow):
     self.form = self.findChild(QVBoxLayout, 'vLayout')
     self.group = self.findChild(QGroupBox, 'groupBox')
 
-  def scrape(self, skin_path: str, json_path: str):
+  def populate_layout(self, layout: QVBoxLayout, element: str, element_dict: dict):
     """
-    Used to scrape the elements from skins in your skin folder
+    Populate the UI with the desired elements
 
-    skin_path: str - Path to your osu skin folder\n
-    json_path: str - Path to the apps json file 
+    layout (QVBoxLayout): The layout your populating\n
+    element (str):  The element you want to populate the UI with\n
+    element_dict (dict): The dict holding all of the elements
+    """
+    #clearing the layout if has more than 0 elements
+    if layout.count() > 0:
+      for i in reversed(range(layout.count())): 
+        layout.itemAt(i).widget().deleteLater()
+      
+    for ele in element_dict[element]:
+       layout.addWidget(Image(ele, (100,100), self.elements['folder_path']))
+       
+  def scrape(self, skin_path: str, json_path: str):
+    """Used to scrape the elements from skins in your skin folder
+
+      Parameters: 
+          skin_path: str - Path to your osu skin folder
+          json_path: str - Path to the apps json file
+        
     """
 
     #I am aware theres probably one to many variables but it works so lets move on ok?
@@ -111,10 +109,6 @@ class UI(QMainWindow):
       self.jason = open('test.json', mode='r')
       self.elements: dict = json.load(self.jason)
       self.jason.close()
-
-
-
-
       self.element_combo.addItems(self.elements.keys())
   
 app = QApplication(sys.argv)

@@ -3,7 +3,8 @@ import shutil as sh
 import time 
 
 def find_skin_element(element: str, dstn: str, direct: str)->None:
-    """
+    """find_skin_element
+    
     Method to scrape the skin folder for a specified element.
 
     element: the name of the element your looking for (include file extension)\n
