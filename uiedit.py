@@ -8,7 +8,6 @@ from PyQt5.QtWidgets import (
   QComboBox
   )
 from PyQt5 import uic
-from masher import find_skin_element as fse
 from classes import Image
 import sys
 import os
@@ -83,8 +82,7 @@ class UI(QMainWindow):
 
     #I am aware theres probably one to many variables but it works so lets move on ok?
     elements_place: dict = {}
-    jason = open(json_path, mode='w')
-
+    
     #saving the folder path in a key
     elements_place['folder_path'] = self.line1.text()
 
