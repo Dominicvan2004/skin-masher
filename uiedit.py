@@ -11,10 +11,11 @@ from PyQt5 import uic
 from classes import Image
 import sys
 import os
-import json
+from data import add_to_db as add
 
 
-#add functionality to the images and fix centering 
+
+
 
 class UI(QMainWindow):
 
@@ -27,14 +28,12 @@ class UI(QMainWindow):
 
 
     self.jason = open('test.json', mode='r')
-    self.elements: dict = json.load(self.jason)
     self.jason.close()
     
     self.element_combo.addItems(self.elements.keys())
 
     self.skin_button.clicked.connect(lambda: self.scrape(
       skin_path=self.line1.text(),
-      json_path='test.json'
     ))
 
     self.element_button.clicked.connect(lambda: self.populate_layout(
@@ -88,26 +87,9 @@ class UI(QMainWindow):
 
     #for each skin path scraping the name of skin and then each element and putting them into their own key 
     for skin in os.listdir(skin_path):
-      for ele in os.listdir(skin_path + '\\' + skin):
-        try:
-        #this works if the key already exsits
-          elements_place[ele].append(skin_path + '\\' + skin + '\\' + ele)
-        except:
-        #if it doesnt then make a new key 
-          elements_place[ele] = [skin_path + '\\' + skin + '\\' + ele]
+      
     
-        self.jason = open('test.json', mode='r')
-
-      #dumping the dictionary we made into the jason file 
-      jason = open(json_path, mode='w')
-      json.dump(elements_place, jason)
-      jason.close()
-
-      #updating the UI's combobox
-      self.jason = open('test.json', mode='r')
-      self.elements: dict = json.load(self.jason)
-      self.jason.close()
-      self.element_combo.addItems(self.elements.keys())
+        
   
 app = QApplication(sys.argv)
 
