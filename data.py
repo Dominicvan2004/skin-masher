@@ -1,19 +1,18 @@
 from sqlmodel import *
 import os
 
+
 engine = create_engine('sqlite:///elements.db')
 
 
 class Element(SQLModel, table=True):
   path:str  = Field(max_length=100, primary_key=True)
   
-
 SQLModel.metadata.create_all(engine)
 
-def add_to_db(path_list:list[str]):
-  """
-  Used to add a list of elements 
-  """
+
+def add_to_db(path_list:list[str]) -> None:
+
   with Session(engine) as session:
     element_list: list[Element] = []
 
@@ -22,7 +21,6 @@ def add_to_db(path_list:list[str]):
 
     session.add_all(element_list)
     session.commit()
-
 
 def search_element(param: str):
   with Session(engine) as session:
