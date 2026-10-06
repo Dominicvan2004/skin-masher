@@ -8,21 +8,21 @@ class Element(SQLModel, table=True):
   path:str  = Field(max_length=100, primary_key=True)
   
 
-  
-
 SQLModel.metadata.create_all(engine)
 
-def add_to_db(path_:str):
-
+def add_to_db(path_list:list[str]):
+  """
+  Used to add a list of elements 
+  """
   with Session(engine) as session:
-    element1 = Element(path=path_)
+    element_list: list[Element] = []
 
-    session.add(element1)
+    for path in path_list:
+      element_list.append(Element(path=path))
+
+    session.add_all(element_list)
     session.commit()
 
-    statement = select(Element).where(Element.path==path_)
-    res = session.exec(statement)
-    # print(res.all())
 
 def search_element(param: str):
   with Session(engine) as session:
@@ -34,5 +34,10 @@ def search_element(param: str):
 
 
 search_element('cursor.png')
+test_list: list = []
+
+for i in os.listdir("C:\\Users\\2004d\\AppData\\Local\\osu!\\Skins"):
+  test_list.append("C:\\Users\\2004d\\AppData\\Local\\osu!\\Skins\\" + i)
+add_to_db(test_list)
 
 
