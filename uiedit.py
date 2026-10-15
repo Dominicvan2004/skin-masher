@@ -11,7 +11,10 @@ from PyQt5 import uic
 from classes import Image
 import sys
 import os
-from data import add_to_db as add
+from data import (
+  add_to_db as add,
+  search_element as search
+)
 
 
 
@@ -32,7 +35,7 @@ class UI(QMainWindow):
     
     self.element_combo.addItems(self.elements.keys())
 
-    self.skin_button.clicked.connect(lambda: self.scrape(
+    self.folder_button.clicked.connect(lambda: self.scrape(
       skin_path=self.line1.text(),
     ))
 
@@ -48,7 +51,7 @@ class UI(QMainWindow):
   def UIinit(self) -> None:
     self.line1 = self.findChild(QLineEdit, "skinFolder")
     self.element_combo = self.findChild(QComboBox, "elements")
-    self.skin_button = self.findChild(QPushButton, "pushButton")
+    self.folder_button = self.findChild(QPushButton, "folder_button")
     self.element_button = self.findChild(QPushButton, "elementButton")
 
     self.form = self.findChild(QVBoxLayout, 'vLayout')
@@ -67,8 +70,11 @@ class UI(QMainWindow):
       for i in reversed(range(layout.count())): 
         layout.itemAt(i).widget().deleteLater()
       
-    for ele in element_dict[element]:
-       layout.addWidget(Image(ele, (100,100), self.elements['folder_path']))
+    # for ele in element_dict[element]:
+    #    layout.addWidget(Image(ele, (100,100), self.elements['folder_path']))
+    for ele in search():
+      layout.addWidget(Image(ele, (100,100), self.elements['folder_path']))
+
        
   def scrape(self, skin_path: str, json_path: str):
     """Used to scrape the elements from skins in your skin folder
@@ -87,6 +93,7 @@ class UI(QMainWindow):
 
     #for each skin path scraping the name of skin and then each element and putting them into their own key 
     for skin in os.listdir(skin_path):
+      pass
       
     
         
