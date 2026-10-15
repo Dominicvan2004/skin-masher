@@ -6,7 +6,7 @@ engine = create_engine('sqlite:///elements.db')
 
 
 class Element(SQLModel, table=True):
-  path:str  = Field(max_length=100, primary_key=True)
+  path:str = Field(max_length=100, primary_key=True)
   
 SQLModel.metadata.create_all(engine)
 
@@ -22,15 +22,16 @@ def add_to_db(path_list:list[str]) -> None:
     session.add(element_list)
     session.commit()
 
-def search_element(param: str):
+def search_element(param: str) -> Sequence:
   with Session(engine) as session:
     statment = select(Element)
     res = session.exec(statment)
 
-    for i in res.fetchall():
-      print(i.path+'\\'+param)
+    return res.fetchall()
+      
 
 
 search_element('cursor.png')
+
 
 
