@@ -15,6 +15,10 @@ from data import (
   add_to_db as add,
   search_element as search
 )
+from schemas import(
+  Element,
+  FolderPath
+)
 
 
 
@@ -25,18 +29,20 @@ class UI(QMainWindow):
   def __init__(self):
     super(UI, self).__init__()
 
-    uic.loadUi("untitled.ui", self)
+    uic.loadUi("app.ui", self)
     self.UIinit()
 
 
 
-    self.jason = open('test.json', mode='r')
-    self.jason.close()
+    # self.jason = open('test.json', mode='r')
+    # self.jason.close()
     
-    self.element_combo.addItems(self.elements.keys())
+    # self.element_combo.addItems(self.elements.keys())
+    self.folder_path = add()
 
-    self.folder_button.clicked.connect(lambda: self.scrape(
-      skin_path=self.line1.text(),
+    self.folder_button.clicked.connect(lambda: add(
+      skin_folder=self.line1.text(),
+      element="cursor.png"
     ))
 
     self.element_button.clicked.connect(lambda: self.populate_layout(
