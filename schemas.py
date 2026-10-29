@@ -2,10 +2,12 @@ from sqlmodel import *
 
 
 class Element(SQLModel, table=True):
-  root_path:str = Field(max_length=100, primary_key=True)
+    skin_origin: str = Field(max_length=100)
+    element_id: str = Field(primary_key=True)
+    element: bytes
 
-class FolderPath(SQLModel, table=True):
-  folder_path: str  = Field(max_length=100, primary_key=true)
+class Cursor(Element, table=true):
+    __tablename__ = "Cursors"
 
 
 

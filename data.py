@@ -1,35 +1,52 @@
-from sqlmodel import *
-import os
-from schemas import Element
+from sqlmodel import Session
+from sqlalchemy import Engine
+from os import listdir
+from schemas import *
+from pathlib import Path
+from classes import Image
 
 
-engine = create_engine('sqlite:///elements.db')
-SQLModel.metadata.create_all(engine)
+#scrape files then add then to db 
+
+class db_connection():
+  def __init__(self, engine: Engine, skin_folder_path: str):
+      """    
+        Args:
+          engine: SQLAlchemy engine to establish a connection with the db
+          skin_folder_path: Path to your OSU! skin folder
+        """
+      self.engine = engine
+      self.skin_folder_path = skin_folder_path
 
 
-def add_to_db(skin_folder: str, element: str, ) -> None:
-  """
-  path_list: a list of osu skin paths 
+  def scrape_add_element(self, table: Element, element: str):
+    """    
+    Args:
+      table: The SQLmodel table you want to add to
+      element: The element you want to add
+    """
+      
+    with Session(self.engine) as session: 
+      list_of_entries: list[Element] = []
+      for skin in listdir(self.skin_folder_path):
 
-  Meant to scrape a list of skin paths
-  """
-  path_list: list[str] = os.listdir(skin_folder)
+        skin_path = self.skin_folder_path + "\\" + skin
+        element_in_bytes = Path(skin+"element")
 
-  with Session(engine) as session:
-    element_list:list[Element] = []
-    for path in path_list:
-      element_list.append(Element(root_path= skin_folder+path+element))
-    session.add_all(element_list)
-    session.commit()
+        inst = Cursor(
+          skin_origin=skin,
+          element_id= skin_path,
+          element= element_in_bytes.read_bytes()
+        )
 
-def search_element(table: object) -> Sequence:
-  with Session(engine) as session:
+        list_of_entries.append(inst)
 
-    res = session.exec(select(table))
-    return res.all()
+      session.add_all(list_of_entries)
+      session.commit()
 
-print(search_element())
+  def get_element_img_list(self) -> list[Image]:
 
-
-
-
+    with Session(self.engine) as session:
+      statement = select(Cursor)
+      return [Image(i.element,i.skin_origin) for i in list(session.exec(statement).all())]
+  

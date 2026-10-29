@@ -7,18 +7,18 @@ from PyQt5.QtWidgets import (
   QGroupBox,
   QComboBox
   )
+from sqlalchemy import create_engine
 from PyQt5 import uic
 from classes import Image
 import sys
 import os
 from data import (
-  add_to_db as add,
-  search_element as search
+  db_connection
 )
-from schemas import(
-  Element,
-  FolderPath
-)
+# from schemas import(
+#   Element,
+#   FolderPath
+# )
 
 
 
@@ -28,22 +28,16 @@ class UI(QMainWindow):
 
   def __init__(self):
     super(UI, self).__init__()
-
     uic.loadUi("app.ui", self)
     self.UIinit()
+    engine = create_engine("sqlite:///database.db")
+    self.con = db_connection(engine=engine,
+                             skin_folder_path=self.line1.text())
 
 
-
-    # self.jason = open('test.json', mode='r')
-    # self.jason.close()
     
-    # self.element_combo.addItems(self.elements.keys())
-    self.folder_path = add()
 
-    self.folder_button.clicked.connect(lambda: add(
-      skin_folder=self.line1.text(),
-      element="cursor.png"
-    ))
+    self.folder_button.clicked.connect(self.scrape)
 
     self.element_button.clicked.connect(lambda: self.populate_layout(
       layout=self.form,
@@ -78,28 +72,11 @@ class UI(QMainWindow):
       
     # for ele in element_dict[element]:
     #    layout.addWidget(Image(ele, (100,100), self.elements['folder_path']))
-    for ele in search():
-      layout.addWidget(Image(ele, (100,100), self.elements['folder_path']))
+    
 
        
   def scrape(self, skin_path: str, json_path: str):
-    """Used to scrape the elements from skins in your skin folder
-
-      Parameters: 
-          skin_path: str - Path to your osu skin folder
-          json_path: str - Path to the apps json file
-        
-    """
-
-    #I am aware theres probably one to many variables but it works so lets move on ok?
-    elements_place: dict = {}
     
-    #saving the folder path in a key
-    elements_place['folder_path'] = self.line1.text()
-
-    #for each skin path scraping the name of skin and then each element and putting them into their own key 
-    for skin in os.listdir(skin_path):
-      pass
       
     
         

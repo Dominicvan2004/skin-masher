@@ -9,14 +9,14 @@ from PyQt5.QtGui import QPixmap
 import os
 from shutil import copy
 class Image(QWidget):
-    def __init__(self, img_dir:str, scale: tuple, path:str):
+    def __init__(self, img:bytes, skin_origin:str):
         super().__init__()
         #initialzing widgets 
         self.hlayout = QHBoxLayout()
         self.path = path
         self.img_dir = img_dir
         self.label = QLabel()
-        self.label.setPixmap(QPixmap(img_dir).scaled(scale[0], scale[1]))
+        self.label.setPixmap(QPixmap().loadFromData(img).scaled(scale[0], scale[1]))
         self.button = QPushButton('Add to Skin')
 
         #adding event on button click
