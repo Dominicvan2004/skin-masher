@@ -19,7 +19,7 @@ class db_connection():
       self.skin_folder_path = skin_folder_path
 
 
-  def scrape_add_element(self, table: Element|None, element: str):
+  def scrape_add_element(self, table: Element, element: str):
     """    
     Args:
       table: The SQLmodel table you want to add to
@@ -31,7 +31,7 @@ class db_connection():
       for skin in listdir(self.skin_folder_path):
 
         skin_path = self.skin_folder_path + "\\" + skin
-        element_in_bytes = Path(skin+"element")
+        element_in_bytes = Path(skin_path+"\\"+element)
 
         #since where just doing cursors now this will be explicitly a cursor 
         inst = Cursor(
