@@ -19,7 +19,7 @@ class db_connection():
       self.skin_folder_path = skin_folder_path
 
 
-  def scrape_add_element(self, table: Element, element: str):
+  def scrape_add_element(self, table: Element|None, element: str):
     """    
     Args:
       table: The SQLmodel table you want to add to
@@ -33,6 +33,7 @@ class db_connection():
         skin_path = self.skin_folder_path + "\\" + skin
         element_in_bytes = Path(skin+"element")
 
+        #since where just doing cursors now this will be explicitly a cursor 
         inst = Cursor(
           skin_origin=skin,
           element_id= skin_path,
@@ -45,8 +46,13 @@ class db_connection():
       session.commit()
 
   def get_element_img_list(self) -> list[Image]:
+    """
+    Args:
+      Gets all the cursors from the db and returns them as a list of images 
+    """
 
     with Session(self.engine) as session:
       statement = select(Cursor)
       return [Image(i.element,i.skin_origin) for i in list(session.exec(statement).all())]
+
   

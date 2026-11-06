@@ -15,10 +15,7 @@ import os
 from data import (
   db_connection
 )
-# from schemas import(
-#   Element,
-#   FolderPath
-# )
+from schemas import Cursor
 
 
 
@@ -33,9 +30,6 @@ class UI(QMainWindow):
     engine = create_engine("sqlite:///database.db")
     self.con = db_connection(engine=engine,
                              skin_folder_path=self.line1.text())
-
-
-    
 
     self.folder_button.clicked.connect(self.scrape)
 
@@ -57,7 +51,7 @@ class UI(QMainWindow):
     self.form = self.findChild(QVBoxLayout, 'vLayout')
     self.group = self.findChild(QGroupBox, 'groupBox')
 
-  def populate_layout(self, layout: QVBoxLayout, element: str, element_dict: dict):
+  def populate_layout(self, list_of_elements: list):
     """
     Populate the UI with the desired elements
 
@@ -66,18 +60,15 @@ class UI(QMainWindow):
     element_dict (dict): The dict holding all of the elements
     """
     #clearing the layout if has more than 0 elements
-    if layout.count() > 0:
-      for i in reversed(range(layout.count())): 
-        layout.itemAt(i).widget().deleteLater()
+    if self.form.count() > 0:
+      for i in reversed(range(self.form.count())): 
+        self.form.itemAt(i).widget().deleteLater()
       
-    # for ele in element_dict[element]:
-    #    layout.addWidget(Image(ele, (100,100), self.elements['folder_path']))
-    
-
+    for image in list_of_elements:
+       self.form.addWidget(image)
        
-  def scrape(self, skin_path: str, json_path: str):
-    
-      
+  def scrape(self):
+      self.con.scrape_add_element()
     
         
   
